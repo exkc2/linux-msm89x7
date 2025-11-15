@@ -4207,7 +4207,7 @@ static const struct qcom_reset_map gcc_msm8917_resets[] = {
 	[GCC_MDSS_BCR]			= { 0x4d074 },
 };
 
-static const struct qcom_reset_map gcc_8952_resets[] = {
+static const struct qcom_reset_map gcc_msm8952_resets[] = {
 	[GCC_CAMSS_MICRO_BCR] = {0x56008},
 	//todo like those usb fs above [GCC_USB_FS_BCR] = {0x3F000},
 	[GCC_USB_HS_BCR] = {0x41000},
