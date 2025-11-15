@@ -4011,6 +4011,14 @@ static const struct qcom_reset_map gcc_msm8917_resets[] = {
 	[GCC_MDSS_BCR]			= { 0x4d074 },
 };
 
+static const struct qcom_reset_map gcc_8952_resets[] = {
+	[GCC_CAMSS_MICRO_BCR] = {0x56008},
+	[GCC_USB_FS_BCR] = {0x3F000},
+	[GCC_USB_HS_BCR] = {0x41000},
+	[GCC_USB2_HS_PHY_ONLY_BCR] = {0x41034},
+	[GCC_QUSB2_PHY_BCR] = {0x4103C},
+};
+
 static const struct regmap_config gcc_msm8917_regmap_config = {
 	.reg_bits	= 32,
 	.reg_stride	= 4,
