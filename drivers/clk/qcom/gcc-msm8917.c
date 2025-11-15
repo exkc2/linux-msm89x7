@@ -4155,7 +4155,15 @@ static int gcc_msm8917_probe(struct platform_device *pdev)
 		gfx3d_clk_src.freq_tbl = ftbl_gfx3d_clk_src_msm8940;
 	} else if (gcc_desc == &gcc_sdm439_desc) {
 		sdm439_clock_override();
-	}
+	} else if (gcc_desc == &gcc_msm8952_desc) {
+		//msm8952 dont have sleep clock
+		gpll0_early.hw.init = &(struct clk_init_data){
+			.name = "gpll0_msm8952_clk_src",
+			.parent_data = &(const struct clk_parent_data) {
+				.index = DT_XO,
+			};
+	};
+	};
 
 	regmap = qcom_cc_map(pdev, gcc_desc);
 	if (IS_ERR(regmap))
