@@ -1,0 +1,6 @@
+
+#include "msm8939.dtsi"
+
+&gcc{
+compatible = "qcom,gcc-msm8952";                                     
+}
