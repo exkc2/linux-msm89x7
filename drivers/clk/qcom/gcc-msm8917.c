@@ -4276,6 +4276,16 @@ static const struct qcom_cc_desc gcc_msm8937_desc = {
 	.num_gdscs = ARRAY_SIZE(gcc_msm8937_gdscs),
 };
 
+static const struct qcom_cc_desc gcc_msm8952_desc = {
+	.config = &gcc_msm8917_regmap_config,
+	.clks = gcc_msm8952_clocks,
+	.num_clks = ARRAY_SIZE(gcc_msm8952_clocks),
+	.resets = gcc_msm8952_resets,
+	.num_resets = ARRAY_SIZE(gcc_msm8952_resets),
+	.gdscs = gcc_msm8937_gdscs,
+	.num_gdscs = ARRAY_SIZE(gcc_msm8937_gdscs),
+};
+
 static const struct qcom_cc_desc gcc_msm8940_desc = {
 	.config = &gcc_msm8917_regmap_config,
 	.clks = gcc_msm8940_clocks,
@@ -4380,6 +4390,7 @@ static int gcc_msm8917_probe(struct platform_device *pdev)
 
 static const struct of_device_id gcc_msm8917_match_table[] = {
 	{ .compatible = "qcom,gcc-msm8917", .data = &gcc_msm8917_desc },
+	{ .compatible = "qcom,gcc-msm8952", .data = &gcc_msm8952_desc },
 	{ .compatible = "qcom,gcc-qm215", .data = &gcc_qm215_desc },
 	{ .compatible = "qcom,gcc-msm8937", .data = &gcc_msm8937_desc },
 	{ .compatible = "qcom,gcc-msm8940", .data = &gcc_msm8940_desc },
