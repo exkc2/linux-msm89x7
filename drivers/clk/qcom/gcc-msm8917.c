@@ -4375,7 +4375,7 @@ static int gcc_msm8917_probe(struct platform_device *pdev)
 			.name = "gpll0_msm8952_clk_src",
 			.parent_data = &(const struct clk_parent_data) {
 				.index = DT_XO,
-			};
+			},
 	};
 	};
 
