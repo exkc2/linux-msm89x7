@@ -3,6 +3,7 @@
 /dts-v1/;
 
 #include "msm8952.dtsi"   
+#include "pm8950.dtsi"   
 
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/input.h>
@@ -11,8 +12,8 @@
 #include <dt-bindings/pinctrl/qcom,pmic-mpp.h>
 
 / {
-	model = "Lenovo Yoga Tab 3 10 LTE";
-	compatible = "lenovo,lxf-p5100", "qcom,msm8909";
+	model = "Samsung c5";
+	compatible = "samsung,c5", "qcom,msm8952";
 	chassis-type = "tablet";
 
 	aliases {
@@ -20,19 +21,17 @@
 	};
 
 	chosen {
-		#address-cells = <1>;
-		#size-cells = <1>;
-		ranges;
 
 		stdout-path = "serial0";
 
 		framebuffer@83200000 {
-			compatible = "simple-framebuffer";
-			reg = <0x83200000 (800 * 1280 * 3)>;
 
-			width = <800>;
-			height = <1280>;
-			stride = <(1280 * 3)>;
+			compatible = "simple-framebuffer";
+			reg = <0x83200000 (1080 * 1920 * 3)>;
+
+			width = <1080>;
+			height = <1920>;
+			stride = <(1920 * 3)>;
 			format = "r8g8b8";
 
 			power-domains = <&gcc MDSS_GDSC>;
@@ -46,4 +45,55 @@
 				 <&gcc GCC_MDSS_ESC0_CLK>;
 		};
 	};
+	
+	i2c-muic {
+		compatible = "i2c-gpio";
+		sda-gpios = <&tlmm 18 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+		scl-gpios = <&tlmm 19 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+
+		pinctrl-0 = <&muic_i2c_default_state>;
+		pinctrl-names = "default";
+
+		i2c-gpio,delay-us = <2>;
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		muic: usb-switch@25 {
+		compatible = "siliconmitus,sm5703-muic";
+		reg = <0x25>;
+
+		interrupt-parent = <&tlmm>;
+		interrupts = <140 IRQ_TYPE_NONE>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&muic_i2c_default_state>;
+		};
 };
+
+
+};
+
+&usb {
+	extcon = <&muic>, <&muic>;
+	dr_mode = "peripheral";
+	status="okay";
+};
+
+&usb_hs_phy {
+	extcon = <&muic>;
+};
+
+
+&tlmm {
+	muic_i2c_default_state:muic-i2c-default-state {
+		pins = "gpio18", "gpio19";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+};
+
+
+arch/arm64/boot/dts/qcom/.msm8956-sony-xperia-loire-suzu.dtb.cmd:
